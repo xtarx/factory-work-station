@@ -1,8 +1,19 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import '../styles/globals.css';
+import type { AppProps } from 'next/app';
+import { PusherProvider } from '@harelpls/use-pusher';
+
+const config = {
+    clientKey: '88fb07199586b1f7928d',
+    cluster: 'eu',
+    // required for private/presence channels
+};
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+    return (
+        <PusherProvider {...config}>
+            <Component {...pageProps} />;
+        </PusherProvider>
+    );
 }
 
-export default MyApp
+export default MyApp;

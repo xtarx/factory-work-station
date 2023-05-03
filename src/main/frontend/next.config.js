@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
-  images: { unoptimized: true }
-}
+    reactStrictMode: true,
+    swcMinify: true,
+    images: { unoptimized: true },
+    styledComponents: true,
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
