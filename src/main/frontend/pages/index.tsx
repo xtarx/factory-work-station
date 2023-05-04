@@ -3,17 +3,16 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import { useChannel, useEvent } from '@harelpls/use-pusher';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const Home: NextPage = () => {
     const [message, setMessages] = useState([]);
-    const data = ['Element 1', 'Element 2', 'Element 3'];
-
     const channel = useChannel('my-channel');
     useEvent(channel, 'my-event2', ({ data }) => {
         console.log('recieved ', data);
         setMessages((messages) => [...messages, data]);
     });
+
     return (
         <div className={styles.container}>
             <Head>
@@ -35,6 +34,7 @@ const Home: NextPage = () => {
                     </div>
                 ))}
                 <p className={styles.description}>Images </p>
+
             </main>
         </div>
     );
