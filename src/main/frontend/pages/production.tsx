@@ -8,30 +8,24 @@ import { pdfjs, Document, Page } from 'react-pdf';
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 const Home: NextPage = () => {
-    const [message, setMessages] = useState([
-        'Aufgabe A',
-        'Aufgabe B',
-        'Aufgabe C',
-    ]);
+    const [message, setMessages] = useState([]);
     const [resource, setResources] = useState([
-        // 'http://localhost:3000/sample.pdf',
-        // 'https://raw.githubusercontent.com/vercel/next.js/canary/examples/image-component/public/mountains.jpg',
+        'http://localhost:3000/sample.pdf',
+        'https://raw.githubusercontent.com/vercel/next.js/canary/examples/image-component/public/mountains.jpg',
     ]);
 
     const [numPages, setNumPages] = useState(1);
     const [pageNumber, setPageNumber] = useState(1);
 
     const channel = useChannel('my-channel');
+    // const pdfURL = 'https://www.africau.edu/images/default/sample.pdf';
+    // const pdfURL = '/files/sample.pdf';
+    const pdfURL = 'http://localhost:3000/sample.pdf';
 
-    useEvent(channel, 'tasks', ({ data }) => {
-        console.log('recieved ', data);
-        // setMessages((messages) => [...messages, data]);
-        setMessages((messages) => [...data]);
-    });
-    useEvent(channel, 'resources', ({ data }) => {
-        console.log('recieved resources', data);
-        setResources((resources) => [...data]);
-    });
+    // useEvent(channel, 'my-event2', ({ data: any }) => {
+    //     console.log('recieved ', data);
+    //     setMessages((messages) => [...messages, data]);
+    // });
 
     function onDocumentLoadSuccess({ numPages }) {
         setNumPages(numPages);
@@ -48,21 +42,20 @@ const Home: NextPage = () => {
             </Head>
 
             <main className={styles.main}>
-                <h1 className={styles.title}>Work station 1</h1>
-                {/* <p>message: {message}</p> */}
-                <p className={styles.description}>Tasks</p>
+                <h1 className={styles.title}>Production Control</h1>
+                <p>message: {message}</p>
+                <p className={styles.description}>List of tasks</p>
                 {message.map((element, index) => (
                     <div className={styles.grid} key={index}>
                         <h2 className={styles.card}> {element}</h2>
                     </div>
                 ))}
-                <p className={styles.description}>Resources</p>
+                <p className={styles.description}>Resource:</p>
                 {resource.map((element, index) =>
                     // if not ending in pdf
                     !element.endsWith('.pdf') ? (
                         <>
                             <Image
-                                key={index}
                                 alt="Mountains"
                                 src={element}
                                 width={300}
@@ -75,10 +68,7 @@ const Home: NextPage = () => {
                             />
                         </>
                     ) : (
-                        <div
-                            key={index}
-                            className="Example__container__document"
-                        >
+                        <div className="Example__container__document">
                             <Document file={element}>
                                 <Page pageNumber={pageNumber} />
                             </Document>

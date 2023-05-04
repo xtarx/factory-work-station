@@ -1,0 +1,35 @@
+-   a. Order sequence from the production control to the workstations.
+-   b. Status updates from the workstations to the production control.
+-   c. Technical drawings (e.g., PDF, JPEG, TIFF) from the production control to the workstations.
+-   d. Sensor data from IoT devices to the production control.
+-   f. confirmation
+
+2. How often is the production control changing sequences per day?
+
+Normally every shift (3 times / day) or on-demand. On-demand means for quality issues (defect parts, …) or employee sickness etc. a new schedule is necessary. You can do assumptions here.
+
+3- 3. Which data should be in real time? which type of data is meant here? is it the 1.a, 1.b & 1.c or all the above or something else?
+
+Real time data: Order Confirmations that you are able to have a “Google Maps” for the shopfloor. You can see where the order is currently.
+
+4. What contributes the most to the huge date (mehrere Gigabyte) is it the technical drawings?
+
+Traceability data: What happened last days? and also technical drawings.
+
+Production control service: orders service
+Status service
+Resources service: drawings
+Notification service
+
+my-channel:tasks
+
+{
+"data":["2","3","5"]
+}
+
+my-channel:resources
+
+{
+"data":["https://raw.githubusercontent.com/vercel/next.js/canary/examples/image-component/public/mountains.jpg"]
+
+}
