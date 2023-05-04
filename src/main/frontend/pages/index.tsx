@@ -4,14 +4,20 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import { useChannel, useEvent } from '@harelpls/use-pusher';
 import { useEffect, useRef, useState } from 'react';
+import { pdfjs, Document, Page } from 'react-pdf';
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 const Home: NextPage = () => {
     const [message, setMessages] = useState([]);
     const channel = useChannel('my-channel');
-    useEvent(channel, 'my-event2', ({ data }) => {
-        console.log('recieved ', data);
-        setMessages((messages) => [...messages, data]);
-    });
+    // const pdfURL = 'https://www.africau.edu/images/default/sample.pdf';
+    // const pdfURL = '/files/sample.pdf';
+    const pdfURL = 'http://localhost:3000/sample.pdf';
+
+    // useEvent(channel, 'my-event2', ({ data: any }) => {
+    //     console.log('recieved ', data);
+    //     setMessages((messages) => [...messages, data]);
+    // });
 
     return (
         <div className={styles.container}>
@@ -33,8 +39,12 @@ const Home: NextPage = () => {
                         <h2 className={styles.card}> {element}</h2>
                     </div>
                 ))}
-                <p className={styles.description}>Images </p>
-
+                <p className={styles.description}>Images:</p>
+                <div className="Example__container__document">
+                    <Document file={pdfURL}>
+                        <Page pageNumber={1} />
+                    </Document>
+                </div>
             </main>
         </div>
     );
