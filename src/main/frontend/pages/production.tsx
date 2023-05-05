@@ -2,41 +2,9 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
-import { useChannel, useEvent } from '@harelpls/use-pusher';
-import { useEffect, useRef, useState } from 'react';
-import { pdfjs, Document, Page } from 'react-pdf';
 import DropzoneForm from '../components/DropzoneForm';
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 const Home: NextPage = () => {
-    const [message, setMessages] = useState([
-        'Aufgabe A',
-        'Aufgabe B',
-        'Aufgabe C',
-    ]);
-    const [resource, setResources] = useState([
-        // 'http://localhost:3000/sample.pdf',
-        // 'https://raw.githubusercontent.com/vercel/next.js/canary/examples/image-component/public/mountains.jpg',
-    ]);
-
-    const [numPages, setNumPages] = useState(1);
-    const [pageNumber, setPageNumber] = useState(1);
-
-    const channel = useChannel('my-channel');
-
-    useEvent(channel, 'tasks', ({ data }) => {
-        console.log('recieved ', data);
-        // setMessages((messages) => [...messages, data]);
-        setMessages((messages) => [...data]);
-    });
-    useEvent(channel, 'resources', ({ data }) => {
-        console.log('recieved resources', data);
-        setResources((resources) => [...data]);
-    });
-
-    function onDocumentLoadSuccess({ numPages }) {
-        setNumPages(numPages);
-    }
     return (
         <div className={styles.container}>
             <Head>
@@ -50,12 +18,11 @@ const Home: NextPage = () => {
 
             <main className={styles.main}>
                 <h1 className={styles.title}>Production Control Station</h1>
-                {/* <p>message: {message}</p> */}
                 <p className={styles.description}>Live Status </p>
                 <>
                     <Image
                         alt="Mountains"
-                        src={
+                        src={   
                             'https://media1.giphy.com/media/7On8JCPlFnN5Q6ApYL/giphy.gif?cid=ecf05e47csxyb36ykuqbr85kkbrw2rijcq2vn3yb79v6bahd&ep=v1_gifs_search&rid=giphy.gif&ct=g'
                         }
                         width={400}

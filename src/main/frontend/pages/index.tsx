@@ -1,3 +1,4 @@
+//  @ts-nocheck
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -8,32 +9,27 @@ import { pdfjs, Document, Page } from 'react-pdf';
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 const Home: NextPage = () => {
+    const channel = useChannel('my-channel');
     const [message, setMessages] = useState([
         'Aufgabe A',
         'Aufgabe B',
         'Aufgabe C',
     ]);
-    const [resource, setResources] = useState([
-        // 'http://localhost:3000/sample.pdf',
-        // 'https://raw.githubusercontent.com/vercel/next.js/canary/examples/image-component/public/mountains.jpg',
-    ]);
+    const [resource, setResources] = useState(['']);
 
     const [numPages, setNumPages] = useState(1);
     const [pageNumber, setPageNumber] = useState(1);
 
-    const channel = useChannel('my-channel');
-
-    useEvent(channel, 'tasks', ({ data }) => {
-        console.log('recieved ', data);
-        // setMessages((messages) => [...messages, data]);
-        setMessages((messages) => [...data]);
-    });
     useEvent(channel, 'resources', ({ data }) => {
         console.log('recieved resources', data);
-        setResources((resources) => [...data]);
+        setResources(() => [...data]);
+    });
+    useEvent(channel, 'tasks', ({ data }) => {
+        console.log('recieved ', data);
+        setMessages(() => [...data]);
     });
 
-    function onDocumentLoadSuccess({ numPages }) {
+    function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
         setNumPages(numPages);
     }
     return (

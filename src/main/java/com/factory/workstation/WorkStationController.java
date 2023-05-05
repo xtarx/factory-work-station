@@ -5,11 +5,11 @@ import com.pusher.client.channel.Channel;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-
 
 
 @RestController
@@ -35,18 +35,6 @@ public class WorkStationController {
         return result;
     }
 
-
-    @RequestMapping(method = RequestMethod.GET, path = "/r")
-    public List<DataEntry> r() {
-        channel.trigger("client-myEvent", "{\"myName\":\"Bob\"}");
-
-//        pusher.setEncrypted(true);
-        final var result = new ArrayList<DataEntry>();
-        for (int i = 0; i < 1; i++) {
-            result.add(new DataEntry(UUID.randomUUID().toString()));
-        }
-        return result;
-    }
 
 
 }

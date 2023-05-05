@@ -33,3 +33,7 @@ my-channel:resources
 "data":["https://raw.githubusercontent.com/vercel/next.js/canary/examples/image-component/public/mountains.jpg"]
 
 }
+
+
+ // 'http://localhost:3000/sample.pdf',
+        // 'https://raw.githubusercontent.com/vercel/next.js/canary/examples/image-component/public/mountains.jpg',

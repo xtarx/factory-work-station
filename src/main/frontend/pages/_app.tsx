@@ -5,7 +5,6 @@ import { PusherProvider } from '@harelpls/use-pusher';
 const config = {
     clientKey: '88fb07199586b1f7928d',
     cluster: 'eu',
-    // required for private/presence channels
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
